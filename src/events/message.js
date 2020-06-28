@@ -6,7 +6,7 @@ module.exports = class extends Event {
   }
 
   exec(client, msg) {
-    if (!msg.guild || msg.author.bot || msg.webhookID) return;
+    if (!msg.guild || msg.author.bot || msg.webhookID || !msg.content.startsWith(client.prerfix)) return;
 
     const [cmd, ...args] = msg.content
       .slice(client.prefix.length)
