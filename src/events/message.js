@@ -6,7 +6,7 @@ module.exports = class extends Event {
   }
 
   exec(client, msg) {
-    if (!msg.guild || msg.author.bot || msg.webhookID || !msg.content.startsWith(client.prerfix)) return;
+    if (!msg.guild || msg.author.bot || msg.webhookID) return;
 
     const [cmd, ...args] = msg.content
       .slice(client.prefix.length)
@@ -14,6 +14,6 @@ module.exports = class extends Event {
       .split(/ +/gi);
 
     const command = client.cmd.commands.get(cmd.toLowerCase());
-    if (command) command.exec(msg, args);
+    if (command && msg.content.toLowerCase().startsWith(client.prefix.toLowerCase())) command.exec(msg, args);
   }
 };
