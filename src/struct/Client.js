@@ -116,14 +116,20 @@ module.exports = class Bot extends Client {
       .none(bumpData.desc)
       .setAuthor(bumpGuild.name, bumpGuild.iconURL())
       .setThumbnail(bumpGuild.iconURL())
+      .setURL(bumpData.invite)
+      .addField("Join now", bumpData.invite)
       .addField(
         "Misc",
         `**Members:** ${bumpGuild.members.cache.size}\n**Channels:** ${
           bumpGuild.channels.cache.size
+        }\n**Roles:** ${bumpGuild.roles.cache.size}\n**Emojis:** ${
+          bumpGuild.emojis.cache.size
         }\n**Owner:** ${bumpGuild.owner}\n**Server Age:** ${ms(
           Date.now() - bumpGuild.createdTimestamp,
-          { long: true }
-        )}`
+          {
+            long: true,
+          }
+        )}\n**Region:** ${bumpGuild.region}`
       )
       .setFooter(`Bumped by ${options.bumper.tag}`)
       .setTimestamp();
