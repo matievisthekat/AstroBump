@@ -10,11 +10,7 @@ module.exports = class extends Command {
 
   async exec(msg, args) {
     if (!msg.client.managersID.includes(msg.author.id))
-      return msg.chanenl.send(
-        new msg.client.embed().red(
-          "Only managers are able to use that command!"
-        )
-      );
+      return msg.channel.send(new msg.client.embed().red("Only managers are able to use that command!"));
 
     if (!args[0])
       return msg.channel.send(
@@ -32,10 +28,7 @@ module.exports = class extends Command {
       );
 
     const guild = msg.client.guilds.cache.get(guildID);
-    if (!guild)
-      return msg.channel.send(
-        new msg.client.embed().red(`I could not find that server`)
-      );
+    if (!guild) return msg.channel.send(new msg.client.embed().red(`I could not find that server`));
 
     const data =
       (await msg.client.models.bumpData.findOne({
@@ -46,29 +39,19 @@ module.exports = class extends Command {
       });
 
     if (args[0].toLowerCase() === "add") {
-      if (data.premium)
-        return msg.channel.send(
-          new msg.client.embed().red("That guild is already premium status")
-        );
+      if (data.premium) return msg.channel.send(new msg.client.embed().red("That guild is already premium status"));
 
       data.premium = true;
       await data.save();
 
-      msg.channel.send(
-        new msg.client.embed().green(`Added premium to **${guild.name}**`)
-      );
+      msg.channel.send(new msg.client.embed().green(`Added premium to **${guild.name}**`));
     } else if (args[0].toLowerCase() === "remove") {
-      if (!data.premium)
-        return msg.channel.send(
-          new msg.client.embed().red("That guild does not have premium")
-        );
+      if (!data.premium) return msg.channel.send(new msg.client.embed().red("That guild does not have premium"));
 
       data.premium = false;
       await data.save();
 
-      msg.channel.send(
-        new msg.client.embed().green(`Removed premium from **${guild.name}**`)
-      );
+      msg.channel.send(new msg.client.embed().green(`Removed premium from **${guild.name}**`));
     } else
       return msg.channel.send(
         new msg.client.embed().red(
