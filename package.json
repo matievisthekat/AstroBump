@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^12.2.0",
+    "discord.js": "^13.14.0",
     "dotenv": "^8.2.0",
     "mongoose": "^5.13.20",
     "ms": "^2.1.2"
